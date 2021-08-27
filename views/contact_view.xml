@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Inherited Base Contact Form to add custom fields -->
+	<record model="ir.ui.view"
+		id="contact_inherit_view_partner_form">
+		<field name="name">contact.inherit.view.partner.form</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form" />
+		<field name="arch" type="xml">
+			<div class="oe_button_box" name="button_box">
+				<button name="action_get_lesson_view" class="oe_stat_button"
+					icon="fa-file-text-o" type="object">
+					<field name="lesson_count" widget="statinfo" string="Lessons"
+						options="{'reload_on_button': true}" />
+				</button>
+			</div>
+			<xpath expr="//field[@name='vat']" position="after">
+				<field name="instructor_id" />
+				<field name="contact_type" widget="radio"/>
+				<field name="lesson_ids" widget="many2many_tags" />
+			</xpath>
+		</field>
+	</record>
+</odoo>

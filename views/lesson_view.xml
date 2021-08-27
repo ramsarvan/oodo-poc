@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="lesson_view_tree" model="ir.ui.view">
+		<field name="name">course.lesson.tree</field>
+		<field name="model">course.lesson</field>
+		<field name="arch" type="xml">
+			<tree string="Lessons">
+				<field name="name" />
+				<field name="course_id" />
+				<field name="course_description" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="lesson_view_form" model="ir.ui.view">
+		<field name="name">course.lesson.form</field>
+		<field name="model">course.lesson</field>
+		<field name="arch" type="xml">
+			<form string="Lessons">
+				<sheet>
+					<group>
+						<field name="name" />
+						<field name="course_id" />
+						<field name="course_description" />
+						<field name="room_id" />
+					</group>
+					<notebook>
+						<page string="Lesson Line" name="Lesson Line">
+							<field name="lesson_line_ids">
+								<tree>
+									<field name="partner_id" />
+									<field name="instructor_id" />
+								</tree>
+								<form string="Attendees">
+									<group>
+										<field name="partner_id" />
+										<field name="instructor_id" />
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="lesson_action" model="ir.actions.act_window">
+		<field name="name">Lessons</field>
+		<field name="res_model">course.lesson</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="menu_course_root" name="Courses"></menuitem>
+
+	<menuitem id="menu_lesson" name="Lessons" sequence="3"
+		parent="menu_course_root" action="lesson_action"></menuitem>
+
+</odoo>
