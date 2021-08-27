@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view"
+		id="attendee_inherit_view_partner_form">
+		<field name="name">attendee.inherit.view.partner.form</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form" />
+		<field name="mode">primary</field>
+		<field name="arch" type="xml">
+			<xpath expr="//form" position="replace">
+				<form string="Attendees">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" required="1"/>
+								<field name="email" />
+								<field name="mobile" />
+								<!-- <field name="is_attendee" /> -->
+								<field name="contact_type" required="1"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Courses" name="Course Detail">
+								<field name="partner_course_ids">
+									<tree>
+										<field name="course_id" />
+										<field name="lesson_id" />
+									</tree>
+									<form string="Attendees">
+										<group>
+											<field name="course_id" />
+											<field name="lesson_id" />
+										</group>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="attendee_iherit_view_partner_tree"
+		model="ir.ui.view">
+		<field name="name">res.partner.tree</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form" />
+		<field name="mode">primary</field>
+		<field name="arch" type="xml">
+			<xpath expr="//form" position="replace">
+				<tree string="Contacts" sample="1" multi_edit="1">
+					<field name="display_name" string="Name" />
+					<field name="phone" class="o_force_ltr" optional="show" />
+					<field name="lesson_ids" />
+				</tree>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="attendee_list_action" model="ir.actions.act_window">
+		<field name="name">Attendee</field>
+		<field name="res_model">res.partner</field>
+		<field name="view_mode">tree,form</field>
+		<!-- <field name="domain">[('is_attendee', '=', True)]</field> -->
+		<field name="domain">[('contact_type', '=', 'attendee')]</field>
+		<field name="context">{'default_contact_type': 'attendee'}</field>
+		<field name="view_ids"
+			eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('attendee_iherit_view_partner_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('attendee_inherit_view_partner_form')})]" />
+	</record>
+
+	<menuitem id="menu_attendee_list" name="Attendee List"
+		parent="courses.menu_course_root" action="attendee_list_action"></menuitem>
+
+</odoo>

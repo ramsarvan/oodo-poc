@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_course_lesson,access_course_lesson,model_course_lesson,base.group_user,1,1,1,1
+access_course_room,access_course_room,model_course_room,base.group_user,1,1,1,1
+access_course_detail,access_course_detail,model_course_detail,base.group_user,1,1,1,1
+access_course_lesson_line,access_course_lesson_line,model_course_lesson_line,base.group_user,1,1,1,1
+access_partner_course_detail,access_partner_course_detail,model_partner_course_detail,base.group_user,1,1,1,1
+access_course_line,access_course_line,model_course_line,base.group_user,1,1,1,1
